@@ -17,11 +17,14 @@ const AdminOrders = () => {
   }, [user]);
 
   const updateStatus = async (id, status) => {
-    const res = await fetch(`/api/orders/${id}/status`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
-      body: JSON.stringify({ status })
-    });
+    const res = await fetch(
+  `${process.env.REACT_APP_API_URL}/api/orders/${id}/status`,
+  {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+    body: JSON.stringify({ status })
+  }
+);
     if (res.ok) {
       setOrders(orders.map(order => order._id === id ? { ...order, status } : order));
     }

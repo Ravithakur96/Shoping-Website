@@ -13,7 +13,9 @@ const EditProduct = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await fetch(`/api/products/${id}`);
+      const res = await fetch(
+  `${process.env.REACT_APP_API_URL}/api/products/${id}`
+);
       const data = await res.json();
       setFormData({ name: data.name, description: data.description, price: data.price, category: data.category, stock: data.stock });
     };
@@ -31,11 +33,14 @@ const EditProduct = () => {
     data.append('stock', formData.stock);
     if (image) data.append('image', image);
 
-    const res = await fetch(`/api/products/${id}`, {
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${user.token}` },
-      body: data
-    });
+    const res = await fetch(
+  `${process.env.REACT_APP_API_URL}/api/products/${id}`,
+  {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${user.token}` },
+    body: data
+  }
+);
     setLoading(false);
     if (res.ok) {
       alert('Product updated successfully!');
