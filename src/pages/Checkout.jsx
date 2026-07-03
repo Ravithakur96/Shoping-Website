@@ -73,9 +73,15 @@ const Checkout = () => {
             });
 
             if (saveOrderRes.ok) {
-              dispatch(clearCart());
-              navigate('/ordersuccess');
-            } else {
+  console.log("Before:", localStorage.getItem("cartItems"));
+
+  dispatch(clearCart());
+
+  setTimeout(() => {
+    console.log("After:", localStorage.getItem("cartItems"));
+    navigate("/ordersuccess");
+  }, 100);
+} else {
               alert('Order saving failed');
             }
           } else {
